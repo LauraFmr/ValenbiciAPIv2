@@ -139,7 +139,7 @@ public class ConexionBDD extends javax.swing.JFrame {
                                     .addComponent(jLabel2DatosEstaciones)
                                     .addComponent(jLabel3EstadoConexion)
                                     .addComponent(jLabel4ConectarBDD)
-                                    .addComponent(jButton3CerrarConexion, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jButton3CerrarConexion, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(38, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,7 +201,6 @@ public class ConexionBDD extends javax.swing.JFrame {
     private void jButton2AnyadirBDDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2AnyadirBDDMouseClicked
         // TODO Añade aquí el código para insertar los datos de una estación en la base de datos.
         try {
-            s = con.createStatement();
             String[] values = dJSon.getValues();
 
             for (String value : values) {
@@ -223,7 +222,18 @@ public class ConexionBDD extends javax.swing.JFrame {
 
     private void jButton3CerrarConexionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3CerrarConexionMouseClicked
         // TODO Añade aquí el código para cerrar la conexión con la Base de datos.
-
+        
+         // Comprobamos si existe conexión y en ese caso la cerramos.
+        try {
+            if (con != null) { 
+                con.close();
+                jButton3CerrarConexion.setText("Conexión cerrada");
+                jLabel3EstadoConexion.setText("Listo para establecer conexión");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBDD.class.getName()).log(Level.SEVERE, null, ex);
+            jButton3CerrarConexion.setText("Error al cerrar conexión: " + ex);
+        }
 
     }//GEN-LAST:event_jButton3CerrarConexionMouseClicked
 
@@ -238,8 +248,7 @@ public class ConexionBDD extends javax.swing.JFrame {
     //Declaramos los datos de conexion a la bd
     public void conector() {
         //TODO Añade aquí el código para establecer la conexión con la base de datos
-        // Reseteamos a null la conexion a la bd
-        con = null;
+
         try {
             Class.forName(driver);
 
@@ -250,6 +259,7 @@ public class ConexionBDD extends javax.swing.JFrame {
             // Si la conexion fue exitosa mostramos un mensaje de conexion exitosa
             if (con != null) {
                 jLabel3EstadoConexion.setText("Conexion establecida");
+                jButton3CerrarConexion.setText("Cerrar conexión");
             }
         } // Si la conexion NO fue exitosa mostramos un mensaje de error
         catch (ClassNotFoundException | SQLException e) {

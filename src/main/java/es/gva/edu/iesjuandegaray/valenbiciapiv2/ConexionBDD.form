@@ -41,7 +41,7 @@
                                   <Component id="jLabel2DatosEstaciones" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel3EstadoConexion" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel4ConectarBDD" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton3CerrarConexion" alignment="0" min="-2" pref="122" max="-2" attributes="0"/>
+                                  <Component id="jButton3CerrarConexion" alignment="0" min="-2" pref="229" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
